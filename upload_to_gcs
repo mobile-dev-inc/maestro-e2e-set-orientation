@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+set -eu
+
+# Upload Android app
+UPLOAD_PATH="gs://mobile.dev/cli_e2e"
+
+cd app/build/outputs/apk/debug
+cp app-debug.apk setOrientation.apk
+cd -
+
+gsutil cp app/build/outputs/apk/debug/setOrientation.apk "$UPLOAD_PATH/setOrientation.apk"
+gsutil acl ch -r -u AllUsers:R "$UPLOAD_PATH/setOrientation.apk"
